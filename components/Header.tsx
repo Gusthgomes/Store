@@ -5,9 +5,25 @@ import { Avatar, AvatarFallback } from "./ui/avatar";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Separator } from "./ui/separator";
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "./ui/sheet";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTrigger,
+} from "./ui/sheet";
 
-import { MenuIcon, ShoppingCartIcon } from "lucide-react";
+import {
+  Heart,
+  HomeIcon,
+  ListOrderedIcon,
+  LogInIcon,
+  LogOutIcon,
+  MenuIcon,
+  PackageSearchIcon,
+  PercentIcon,
+  ShoppingCartIcon,
+} from "lucide-react";
 
 const Header = () => {
   return (
@@ -39,6 +55,86 @@ const Header = () => {
               </div>
             </div>
             <Separator />
+          </div>
+
+          <div className="mt-4 flex flex-col gap-2">
+            <Button
+              // onClick={handleLoginClick}
+              variant="outline"
+              className="w-full justify-start gap-2"
+            >
+              <LogInIcon size={16} />
+              Fazer Login
+            </Button>
+
+            <Button
+              // onClick={handleLogoutClick}
+              variant="outline"
+              className="w-full justify-start gap-2"
+            >
+              <LogOutIcon size={16} />
+              Fazer Logout
+            </Button>
+
+            <SheetClose asChild>
+              <Link href="/">
+                <Button
+                  variant="outline"
+                  className="w-full justify-start gap-2"
+                >
+                  <HomeIcon size={16} />
+                  Início
+                </Button>
+              </Link>
+            </SheetClose>
+
+            <SheetClose asChild>
+              <Link href="/orders">
+                <Button
+                  variant="outline"
+                  className="w-full justify-start gap-2"
+                >
+                  <PackageSearchIcon size={16} />
+                  Meus Pedidos
+                </Button>
+              </Link>
+            </SheetClose>
+
+            <SheetClose asChild>
+              <Link href="/wish-list">
+                <Button
+                  variant="outline"
+                  className="w-full justify-start gap-2"
+                >
+                  <Heart size={16} />
+                  Favoritos
+                </Button>
+              </Link>
+            </SheetClose>
+
+            <SheetClose asChild>
+              <Link href="/deals">
+                <Button
+                  variant="outline"
+                  className="w-full justify-start gap-2"
+                >
+                  <PercentIcon size={16} />
+                  Ofertas
+                </Button>
+              </Link>
+            </SheetClose>
+
+            <SheetClose asChild>
+              <Link href="/catalog">
+                <Button
+                  variant="outline"
+                  className="w-full justify-start gap-2"
+                >
+                  <ListOrderedIcon size={16} />
+                  Catálogo
+                </Button>
+              </Link>
+            </SheetClose>
           </div>
         </SheetContent>
       </Sheet>
