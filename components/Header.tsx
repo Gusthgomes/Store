@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Avatar, AvatarFallback } from "./ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Separator } from "./ui/separator";
@@ -25,7 +25,19 @@ import {
   ShoppingCartIcon,
 } from "lucide-react";
 
+import { signIn, signOut, useSession } from "next-auth/react";
+
 const Header = () => {
+  const { status, data } = useSession();
+
+  const handleLoginClick = async () => {
+    await signIn("google");
+  };
+
+  const handleLogoutClick = async () => {
+    await signOut();
+  };
+
   return (
     <Card className="flex items-center justify-between p-[1.875rem]">
       <Sheet>
@@ -40,41 +52,47 @@ const Header = () => {
             Menu
           </SheetHeader>
 
-          <div className="flex flex-col">
-            <div className="flex items-center gap-2 py-4">
-              <Avatar>
-                <AvatarFallback>
-                  {/* {data.user.name?.[0].toUpperCase()} */}
-                </AvatarFallback>
+          {status === "authenticated" && data?.user && (
+            <div className="flex flex-col">
+              <div className="flex items-center gap-2 py-4">
+                <Avatar>
+                  <AvatarFallback>
+                    {data.user.name?.[0].toUpperCase()}
+                  </AvatarFallback>
 
-                {/* {data.user.image && <AvatarImage src={data.user.image} />} */}
-              </Avatar>
-              <div className="flex flex-col">
-                <p className="font-medium"></p>
-                <p className="text-sm opacity-75">Boas compras!</p>
+                  {data.user.image && <AvatarImage src={data.user.image} />}
+                </Avatar>
+                <div className="flex flex-col">
+                  <p className="font-medium">{data.user.name}</p>
+                  <p className="text-sm opacity-75">Boas compras!</p>
+                </div>
               </div>
+              <Separator />
             </div>
-            <Separator />
-          </div>
+          )}
 
           <div className="mt-4 flex flex-col gap-2">
-            <Button
-              // onClick={handleLoginClick}
-              variant="outline"
-              className="w-full justify-start gap-2"
-            >
-              <LogInIcon size={16} />
-              Fazer Login
-            </Button>
+            {status === "unauthenticated" && (
+              <Button
+                onClick={handleLoginClick}
+                variant="outline"
+                className="w-full justify-start gap-2"
+              >
+                <LogInIcon size={16} />
+                Fazer Login
+              </Button>
+            )}
 
-            <Button
-              // onClick={handleLogoutClick}
-              variant="outline"
-              className="w-full justify-start gap-2"
-            >
-              <LogOutIcon size={16} />
-              Fazer Logout
-            </Button>
+            {status === "authenticated" && (
+              <Button
+                onClick={handleLogoutClick}
+                variant="outline"
+                className="w-full justify-start gap-2"
+              >
+                <LogOutIcon size={16} />
+                Fazer Logout
+              </Button>
+            )}
 
             <SheetClose asChild>
               <Link href="/">
@@ -88,53 +106,57 @@ const Header = () => {
               </Link>
             </SheetClose>
 
-            <SheetClose asChild>
-              <Link href="/orders">
-                <Button
-                  variant="outline"
-                  className="w-full justify-start gap-2"
-                >
-                  <PackageSearchIcon size={16} />
-                  Meus Pedidos
-                </Button>
-              </Link>
-            </SheetClose>
+            {status === "authenticated" && data?.user && (
+              <>
+                <SheetClose asChild>
+                  <Link href="/orders">
+                    <Button
+                      variant="outline"
+                      className="w-full justify-start gap-2"
+                    >
+                      <PackageSearchIcon size={16} />
+                      Meus Pedidos
+                    </Button>
+                  </Link>
+                </SheetClose>
 
-            <SheetClose asChild>
-              <Link href="/wish-list">
-                <Button
-                  variant="outline"
-                  className="w-full justify-start gap-2"
-                >
-                  <Heart size={16} />
-                  Favoritos
-                </Button>
-              </Link>
-            </SheetClose>
+                <SheetClose asChild>
+                  <Link href="/wish-list">
+                    <Button
+                      variant="outline"
+                      className="w-full justify-start gap-2"
+                    >
+                      <Heart size={16} />
+                      Favoritos
+                    </Button>
+                  </Link>
+                </SheetClose>
 
-            <SheetClose asChild>
-              <Link href="/deals">
-                <Button
-                  variant="outline"
-                  className="w-full justify-start gap-2"
-                >
-                  <PercentIcon size={16} />
-                  Ofertas
-                </Button>
-              </Link>
-            </SheetClose>
+                <SheetClose asChild>
+                  <Link href="/deals">
+                    <Button
+                      variant="outline"
+                      className="w-full justify-start gap-2"
+                    >
+                      <PercentIcon size={16} />
+                      Ofertas
+                    </Button>
+                  </Link>
+                </SheetClose>
 
-            <SheetClose asChild>
-              <Link href="/catalog">
-                <Button
-                  variant="outline"
-                  className="w-full justify-start gap-2"
-                >
-                  <ListOrderedIcon size={16} />
-                  Catálogo
-                </Button>
-              </Link>
-            </SheetClose>
+                <SheetClose asChild>
+                  <Link href="/catalog">
+                    <Button
+                      variant="outline"
+                      className="w-full justify-start gap-2"
+                    >
+                      <ListOrderedIcon size={16} />
+                      Catálogo
+                    </Button>
+                  </Link>
+                </SheetClose>
+              </>
+            )}
           </div>
         </SheetContent>
       </Sheet>
