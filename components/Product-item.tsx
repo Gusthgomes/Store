@@ -25,6 +25,27 @@ const ProductItem = ({ product, className }: ProductItemProps) => {
           alt={product.name}
         />
       </div>
+      <div className="flex flex-col gap-1">
+        <p className="truncate text-sm">{product.name}</p>
+
+        <div className="flex items-center gap-2 ">
+          {product.discountPercentage > 0 ? (
+            <>
+              <p className="truncate font-semibold lg:text-lg">
+                R$ {product.totalPrice.toFixed(2)}
+              </p>
+
+              <p className="truncate text-xs line-through opacity-75 lg:text-sm">
+                R$ {Number(product.basePrice).toFixed(2)}
+              </p>
+            </>
+          ) : (
+            <p className="truncate text-sm font-semibold">
+              R$ {product.basePrice.toFixed(2)}
+            </p>
+          )}
+        </div>
+      </div>
     </Link>
   );
 };
