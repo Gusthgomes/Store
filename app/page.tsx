@@ -5,6 +5,7 @@ import { db } from "@/lib/prisma";
 import PromoBanner from "@/components/Promo-banner";
 import CategoryList from "@/components/Category-list";
 import ProductList from "@/components/ProductList";
+import PromoMouseBanner from "@/components/Promo-mouse-banner";
 
 export default async function Home() {
   const deals = await db.product.findMany({
@@ -28,6 +29,12 @@ export default async function Home() {
 
       <div className="flex flex-col gap-3 lg:gap-5">
         <ProductList products={deals} />
+      </div>
+
+      <div className="flex flex-col lg:flex-row py-6">
+        <Link href="/category/mouses" className="flex flex-1">
+          <PromoMouseBanner />
+        </Link>
       </div>
     </>
   );
