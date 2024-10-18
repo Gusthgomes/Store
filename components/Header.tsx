@@ -170,15 +170,17 @@ const Header = () => {
         </h1>
       </Link>
 
-      <Sheet>
-        <SheetTrigger asChild>
-          <Button size="icon" variant="outline" className="relative">
-            <ShoppingCartIcon />
-          </Button>
-        </SheetTrigger>
+      {data?.user && (
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button size="icon" variant="outline" className="relative">
+              <ShoppingCartIcon />
+            </Button>
+          </SheetTrigger>
 
-        <SheetContent className="w-[350px] lg:w-[600px] lg:max-w-[600px]"></SheetContent>
-      </Sheet>
+          <SheetContent className="w-[350px] lg:w-[600px] lg:max-w-[600px]"></SheetContent>
+        </Sheet>
+      )}
     </Card>
   );
 };
