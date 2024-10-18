@@ -1,16 +1,25 @@
+"use client";
+
 import { Category } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
+
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 interface CategoryItemProps {
   category: Category;
 }
 
 const CatalogItem = ({ category }: CategoryItemProps) => {
+  const { data } = useSession();
+
+  if (!data?.user.id) return redirect("/");
+
   return (
     <Link href={`/category/${category.slug}`}>
       <div className="flex flex-col">
-        <div className="to-[rgba(80, 51, 195)] flex h-[150px] w-full items-center justify-center rounded-tl-lg rounded-tr-lg bg-gradient-to-r from-[#5033c3]">
+        <div className="flex h-[150px] w-full items-center justify-center rounded-tl-lg rounded-tr-lg bg-category-item-gradient">
           <Image
             src={category.imageUrl}
             alt={category.name}
