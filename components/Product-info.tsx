@@ -7,6 +7,7 @@ import { ArrowLeftIcon, ArrowRightIcon, TruckIcon } from "lucide-react";
 import { useContext, useState } from "react";
 import WishButton from "./WishButton";
 import { WishList } from "@prisma/client";
+import { CartContext } from "@/providers/cart";
 
 interface ProductWithTotalPriceAndWishLists extends ProductWithTotalPrice {
   wishLists: WishList[];
@@ -20,7 +21,7 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
   console.log(product.wishLists);
   const [quantity, setQuantity] = useState(1);
 
-  //   const { addProductToCart } = useContext(CartContext);
+  const { addProductToCart } = useContext(CartContext);
 
   const handleDecreaseQuantityClick = () => {
     setQuantity((prev) => (prev === 1 ? prev : prev - 1));
@@ -31,7 +32,7 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
   };
 
   const handleAddToCartClick = () => {
-    // addProductToCart({ ...product, quantity });
+    addProductToCart({ ...product, quantity });
   };
 
   return (
