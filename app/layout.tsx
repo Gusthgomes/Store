@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+
 import AuthProvider from "@/providers/nextAuth";
+import CartProvider from "@/providers/cart";
+
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,11 +35,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AuthProvider>
-          <Header />
-          {children}
-          <Footer />
-        </AuthProvider>
+        <div className="flex h-full flex-col">
+          <AuthProvider>
+            <CartProvider>
+              <Header />
+              <div className="flex-1">{children}</div>
+              <Toaster />
+              <Footer />
+            </CartProvider>
+          </AuthProvider>
+        </div>
       </body>
     </html>
   );
