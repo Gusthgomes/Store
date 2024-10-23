@@ -21,7 +21,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Store",
+  title: "DevStore",
   description: "App Store",
 };
 
