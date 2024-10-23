@@ -8,6 +8,7 @@ import { useContext, useState } from "react";
 import WishButton from "./WishButton";
 import { WishList } from "@prisma/client";
 import { CartContext } from "@/providers/cart";
+import { toast } from "sonner";
 
 interface ProductWithTotalPriceAndWishLists extends ProductWithTotalPrice {
   wishLists: WishList[];
@@ -33,6 +34,7 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
 
   const handleAddToCartClick = () => {
     addProductToCart({ ...product, quantity });
+    toast.success("Produto adicionado ao carrinho");
   };
 
   return (
