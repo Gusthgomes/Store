@@ -5,6 +5,11 @@ import { computeProductTotalPrice } from "@/helpers/products";
 import ProductList from "@/components/ProductList";
 import SectionTitle from "@/components/Section-title";
 
+export const metadata = {
+  title: "Produtos",
+  description: "Detalhes do produto",
+};
+
 interface ProductDetailsPageProps {
   params: {
     slug: string;

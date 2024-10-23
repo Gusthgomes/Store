@@ -4,6 +4,11 @@ import { CATEGORY_ICON } from "@/constants/category-icon";
 import { computeProductTotalPrice } from "@/helpers/products";
 import { db } from "@/lib/prisma";
 
+export const metadata = {
+  title: "Categoria",
+  description: "Categoria de produtos da DevStore",
+};
+
 const CategoryProducts = async ({ params }: any) => {
   const category = await db.category.findFirst({
     where: {

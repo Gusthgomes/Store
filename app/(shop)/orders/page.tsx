@@ -5,6 +5,11 @@ import { PackageSearchIcon } from "lucide-react";
 import { getServerSession } from "next-auth";
 import OrderItem from "@/components/Order-item";
 
+export const metadata = {
+  title: "Pedidos",
+  description: "Meus pedidos",
+};
+
 export const dynamic = "force-dynamic";
 
 async function OrderPage() {

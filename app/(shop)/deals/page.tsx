@@ -4,6 +4,11 @@ import { computeProductTotalPrice } from "@/helpers/products";
 import { db } from "@/lib/prisma";
 import { PercentIcon } from "lucide-react";
 
+export const metadata = {
+  title: "Ofertas",
+  description: "Ofertas da DevStore",
+};
+
 const DealsPage = async () => {
   const deals = await db.product.findMany({
     where: {

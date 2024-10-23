@@ -3,6 +3,11 @@ import { db } from "@/lib/prisma";
 import { ShapesIcon } from "lucide-react";
 import CatalogItem from "@/components/Catalog-item";
 
+export const metadata = {
+  title: "Catálogo",
+  description: "Catálogo de produtos da DevStore",
+};
+
 const CatalogPage = async () => {
   const categories = await db.category.findMany({});
 
