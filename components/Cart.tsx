@@ -11,6 +11,7 @@ import { Button } from "./ui/button";
 // import { loadStripe } from "@stripe/stripe-js";
 import { createOrder } from "@/backend/actions/order";
 import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 const Cart = () => {
   const { data } = useSession();
@@ -19,8 +20,7 @@ const Cart = () => {
 
   const handleFinishPurchaseClick = async () => {
     if (!data?.user) {
-      // TODO: redirecionar para o login
-      return;
+      return redirect("/");
     }
 
     const order = await createOrder(products, (data?.user as any).id);
