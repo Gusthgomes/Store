@@ -32,10 +32,12 @@ const Sidebar = () => {
           </Button>
         </Link>
 
-        <Button variant="outline" className="flex w-full justify-start gap-2">
-          <LayoutDashboardIcon size={16} />
-          Dashboard
-        </Button>
+        <Link href="/dashboard">
+          <Button variant="outline" className="flex w-full justify-start gap-2">
+            <LayoutDashboardIcon size={16} />
+            Dashboard
+          </Button>
+        </Link>
 
         <Link href="/dashboard/products">
           <Button
