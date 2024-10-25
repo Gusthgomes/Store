@@ -29,7 +29,7 @@ const OrderProductItem = ({ orderProduct }: OrderProductItemProps) => {
       <div className="flex w-full flex-col gap-1 lg:gap-2">
         <div className="flex w-fit rounded-md bg-accent px-3 py-1">
           <p className="text-[10px] lg:text-xs">
-            Vendido e entregue por <span className="font-bold">FSW Store</span>
+            Vendido e entregue por <span className="font-bold">DevStore</span>
           </p>
         </div>
 
