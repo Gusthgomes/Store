@@ -7,8 +7,8 @@ import { computeProductTotalPrice } from "@/helpers/products";
 import { Separator } from "@radix-ui/react-separator";
 import { ScrollArea } from "./Scroll-area";
 import { Button } from "./ui/button";
-// import { createCheckout } from "@/actions/checkout";
-// import { loadStripe } from "@stripe/stripe-js";
+import { createCheckout } from "@/backend/actions/checkout";
+import { loadStripe } from "@stripe/stripe-js";
 import { createOrder } from "@/backend/actions/order";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
@@ -25,15 +25,17 @@ const Cart = () => {
 
     const order = await createOrder(products, (data?.user as any).id);
 
-    // const checkout = await createCheckout(products, order.id);
+    const checkout = await createCheckout(products, order.id);
 
-    // const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
+    const stripe = await loadStripe(
+      process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string
+    );
 
     // Criar pedido no banco
 
-    // stripe?.redirectToCheckout({
-    //   sessionId: checkout.id,
-    // });
+    stripe?.redirectToCheckout({
+      sessionId: checkout.id,
+    });
   };
 
   return (
